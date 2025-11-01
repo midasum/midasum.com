@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog');
@@ -17,10 +18,39 @@ interface Props {
 const { post } = Astro.props;
 const rendered = await post.render();
 const { Content } = rendered;
+
+// Handle image if provided
+let articleImage = null;
+if (post.data.image) {
+  try {
+    // For relative paths (./image.svg), import from the same folder as the post
+    if (post.data.image.startsWith('./')) {
+      const imagePath = post.data.image.slice(2); // Remove './'
+      const imageModule = await import(`../../content/blog/${post.slug}/${imagePath}`);
+      articleImage = imageModule.default;
+    } else if (post.data.image.startsWith('/')) {
+      // Absolute path from content directory
+      const imagePath = post.data.image.slice(1);
+      const imageModule = await import(`../../content/blog/${imagePath}`);
+      articleImage = imageModule.default;
+    } else {
+      // Try relative to post folder first, then fallback to external URL
+      try {
+        const imageModule = await import(`../../content/blog/${post.slug}/${post.data.image}`);
+        articleImage = imageModule.default;
+      } catch {
+        articleImage = post.data.image; // External URL
+      }
+    }
+  } catch {
+    // If import fails, use as external URL
+    articleImage = post.data.image;
+  }
+}
 ---
 
 <BaseLayout title={`${post.data.title} - midasum`}>
-  <article class="container" style="max-width: 768px; margin: 4rem auto; padding: 2rem;">
+  <article class="blog-post">
     <div class="blog-meta">
       <time class="blog-date" datetime={post.data.date.toISOString()}>
         {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -28,7 +58,16 @@ const { Content } = rendered;
       <span class="blog-category">{post.data.category}</span>
     </div>
     <h1 class="section-title">{post.data.title}</h1>
-    <div class="blog-content">
+    {articleImage && (
+      <figure class="article-image">
+        {typeof articleImage === 'string' ? (
+          <img src={articleImage} alt={post.data.title} />
+        ) : (
+          <Image src={articleImage} alt={post.data.title} />
+        )}
+      </figure>
+    )}
+    <div class="blog-post-content">
       <Content />
     </div>
   </article>

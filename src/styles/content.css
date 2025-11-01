@@ -1,12 +1,4 @@
 @layer components {
-  .blog-image {
-    @apply mb-4 overflow-hidden rounded-t-lg;
-  }
-
-  .blog-card-image {
-    @apply w-full h-48 object-cover;
-  }
-
   .project-image {
     @apply mb-4 overflow-hidden rounded-t-lg;
   }

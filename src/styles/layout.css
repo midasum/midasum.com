@@ -37,10 +37,29 @@
 
   .blog-list {
     @apply space-y-8;
+    /* Desktop: wider layout */
+    @apply md:max-w-5xl md:mx-auto;
   }
 
   .blog-card {
     @apply bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-pink-500/50 transition-colors;
+    /* Mobile: column layout (image on top) */
+    @apply flex flex-col gap-4;
+    /* Desktop: row layout (image on left), wider card */
+    @apply md:flex-row md:gap-6 md:max-w-4xl;
+  }
+
+  .blog-card-content {
+    @apply flex flex-col flex-1;
+    /* Remove top spacing on web */
+    @apply md:pt-0;
+  }
+
+  .blog-post {
+    @apply container;
+    max-width: 768px;
+    margin: 4rem auto;
+    padding: 2rem;
   }
 
   .blog-meta {

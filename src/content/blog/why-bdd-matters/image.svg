@@ -1,0 +1,22 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bddGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#d946ef;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="bddGlow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.25" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.08" />
+    </radialGradient>
+  </defs>
+  <!-- Background with border to visualize size -->
+  <rect width="400" height="400" fill="#0f172a"/>
+  <rect width="400" height="400" fill="url(#bddGlow)"/>
+  <path d="M 100 200 L 200 140 L 300 200 L 200 260 Z" fill="url(#bddGradient)" opacity="0.85"/>
+  <circle cx="150" cy="180" r="10" fill="#0f172a" opacity="0.6"/>
+  <circle cx="200" cy="200" r="10" fill="#0f172a" opacity="0.6"/>
+  <circle cx="250" cy="180" r="10" fill="#0f172a" opacity="0.6"/>
+  <text x="200" y="310" font-family="Arial, sans-serif" font-size="26" fill="#e2e8f0" text-anchor="middle" font-weight="bold">BDD</text>
+</svg>
+

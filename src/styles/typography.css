@@ -23,20 +23,8 @@
     @apply text-slate-300 mb-4 leading-relaxed;
   }
 
-  .blog-title {
-    @apply text-xl font-semibold mb-3;
-  }
-
-  .blog-title a {
-    @apply text-slate-100 hover:text-pink-400 transition-colors;
-  }
-
-  .blog-excerpt {
-    @apply text-slate-300 mb-4 leading-relaxed;
-  }
-
-  /* Article Typography */
-  article {
+  /* Blog Post Typography (for actual blog post pages) */
+  .blog-post {
     @apply text-slate-200;
     /* Optimal reading width: 65-75 characters */
     max-width: 65ch;
@@ -45,7 +33,7 @@
   }
 
   /* Paragraphs */
-  article p {
+  .blog-post p {
     @apply mb-6 leading-relaxed;
     font-size: 1.125rem;
     line-height: 1.75;
@@ -55,60 +43,60 @@
   }
 
   /* Headings hierarchy */
-  article h1 {
+  .blog-post h1 {
     @apply text-4xl font-bold mb-6 mt-8 text-slate-100 leading-tight;
     /* First heading should have less top margin */
   }
 
-  article h1:first-child {
+  .blog-post h1:first-child {
     @apply mt-0;
   }
 
-  article h2 {
+  .blog-post h2 {
     @apply text-3xl font-bold mb-5 mt-10 text-slate-100 leading-tight;
     /* Clear visual separation */
     border-top: 1px solid rgba(148, 163, 184, 0.1);
     padding-top: 1.5rem;
   }
 
-  article h2:first-child {
+  .blog-post h2:first-child {
     @apply mt-0;
     border-top: none;
     padding-top: 0;
   }
 
-  article h3 {
+  .blog-post h3 {
     @apply text-2xl font-semibold mb-4 mt-8 text-slate-100 leading-snug;
   }
 
-  article h4 {
+  .blog-post h4 {
     @apply text-xl font-semibold mb-3 mt-6 text-slate-200 leading-snug;
   }
 
-  article h5 {
+  .blog-post h5 {
     @apply text-lg font-semibold mb-3 mt-5 text-slate-200 leading-snug;
   }
 
-  article h6 {
+  .blog-post h6 {
     @apply text-base font-semibold mb-2 mt-4 text-slate-300 leading-snug;
   }
 
   /* Lists */
-  article ul,
-  article ol {
+  .blog-post ul,
+  .blog-post ol {
     @apply mb-6 ml-6 space-y-2;
     line-height: 1.75;
   }
 
-  article ul {
+  .blog-post ul {
     list-style-type: disc;
   }
 
-  article ol {
+  .blog-post ol {
     list-style-type: decimal;
   }
 
-  article li {
+  .blog-post li {
     @apply text-slate-200;
     font-size: 1.125rem;
     line-height: 1.75;
@@ -116,21 +104,21 @@
     padding-left: 0.5rem;
   }
 
-  article li > ul,
-  article li > ol {
+  .blog-post li > ul,
+  .blog-post li > ol {
     @apply mt-2 mb-0;
   }
 
   /* Nested lists */
-  article ul ul,
-  article ol ol,
-  article ul ol,
-  article ol ul {
+  .blog-post ul ul,
+  .blog-post ol ol,
+  .blog-post ul ol,
+  .blog-post ol ul {
     @apply mt-2 mb-0;
   }
 
   /* Blockquotes */
-  article blockquote {
+  .blog-post blockquote {
     @apply border-l-4 border-pink-500/50 pl-6 pr-4 py-2 my-6 italic text-slate-300;
     font-size: 1.125rem;
     line-height: 1.75;
@@ -138,177 +126,210 @@
     border-radius: 0 0.25rem 0.25rem 0;
   }
 
-  article blockquote p {
+  .blog-post blockquote p {
     @apply mb-0;
   }
 
-  article blockquote p:not(:last-child) {
+  .blog-post blockquote p:not(:last-child) {
     @apply mb-4;
   }
 
   /* Links */
-  article a {
+  .blog-post a {
     @apply text-pink-400 hover:text-pink-300 underline underline-offset-2 transition-colors;
     /* Proper link color contrast */
   }
 
-  article a:visited {
+  .blog-post a:visited {
     @apply text-fuchsia-400;
   }
 
   /* Emphasis */
-  article strong {
+  .blog-post strong {
     @apply font-semibold text-slate-100;
   }
 
-  article em {
+  .blog-post em {
     @apply italic;
   }
 
   /* Horizontal rules */
-  article hr {
+  .blog-post hr {
     @apply border-0 border-t border-slate-800 my-8;
     /* Clear visual separation */
   }
 
   /* Images */
-  article img {
+  .blog-post img {
     @apply my-8 rounded-lg;
     max-width: 100%;
     height: auto;
   }
 
-  article figure {
+  .blog-post figure {
     @apply my-8;
   }
 
-  article figcaption {
+  .blog-post .article-image {
+    @apply my-8 -mx-2;
+    /* Full-width image within article constraints */
+  }
+
+  .blog-post .article-image img {
+    @apply w-full rounded-lg;
+    margin: 0;
+  }
+
+  .blog-post figcaption {
     @apply text-sm text-slate-400 mt-2 text-center italic;
   }
 
   /* Tables */
-  article table {
+  .blog-post table {
     @apply w-full my-6 border-collapse;
   }
 
-  article th,
-  article td {
+  .blog-post th,
+  .blog-post td {
     @apply border border-slate-700 px-4 py-2 text-left;
   }
 
-  article th {
+  .blog-post th {
     @apply bg-slate-900 font-semibold text-slate-100;
   }
 
-  article td {
+  .blog-post td {
     @apply text-slate-200;
   }
 
-  article tbody tr:nth-child(even) {
+  .blog-post tbody tr:nth-child(even) {
     @apply bg-slate-900/50;
   }
 
   /* Code inline */
-  article code {
+  .blog-post code {
     @apply font-mono text-sm;
   }
 
   /* Definition lists */
-  article dl {
+  .blog-post dl {
     @apply my-6;
   }
 
-  article dt {
+  .blog-post dt {
     @apply font-semibold text-slate-100 mb-2;
   }
 
-  article dd {
+  .blog-post dd {
     @apply ml-6 mb-4 text-slate-300;
   }
 
   /* Text alignment */
-  article {
+  .blog-post {
     text-align: left;
   }
 
   /* Prevent text from being too wide */
-  article > * {
+  .blog-post > * {
     max-width: 100%;
   }
 
   /* First paragraph after headings */
-  article h1 + p,
-  article h2 + p,
-  article h3 + p,
-  article h4 + p {
+  .blog-post h1 + p,
+  .blog-post h2 + p,
+  .blog-post h3 + p,
+  .blog-post h4 + p {
     @apply mt-0;
   }
 
   /* Proper spacing around code blocks */
-  article pre {
+  .blog-post pre {
     @apply my-6;
   }
 
-  article p + pre,
-  article pre + p {
+  .blog-post p + pre,
+  .blog-post pre + p {
     @apply mt-6;
   }
 
   /* Proper spacing around math blocks */
-  article .katex-display {
+  .blog-post .katex-display {
     @apply my-8;
   }
 
-  article p + .katex-display,
-  article .katex-display + p {
+  .blog-post p + .katex-display,
+  .blog-post .katex-display + p {
     @apply mt-8;
   }
 
   /* Proper spacing around Mermaid diagrams */
-  article picture {
+  .blog-post picture {
     @apply my-8 block;
   }
 
-  article p + picture,
-  article picture + p {
+  .blog-post p + picture,
+  .blog-post picture + p {
     @apply mt-8;
   }
 
-  /* Readability: ensure proper line length */
-  article {
-    /* Optimal line length: 45-75 characters */
-    /* Using ch units for character-based width */
-  }
-
   /* Small text */
-  article small {
+  .blog-post small {
     @apply text-sm text-slate-400;
   }
 
   /* Abbreviations */
-  article abbr {
+  .blog-post abbr {
     @apply underline decoration-dotted decoration-slate-500 cursor-help;
   }
 
   /* Mark/highlight */
-  article mark {
+  .blog-post mark {
     @apply bg-pink-900/30 text-pink-200 px-1 rounded;
   }
 
   /* Subscript and superscript */
-  article sub,
-  article sup {
+  .blog-post sub,
+  .blog-post sup {
     @apply text-xs relative;
     line-height: 0;
     vertical-align: baseline;
   }
 
-  article sub {
+  .blog-post sub {
     bottom: -0.25em;
   }
 
-  article sup {
+  .blog-post sup {
     top: -0.5em;
+  }
+
+  /* Blog Card Typography (for blog listing/index pages) */
+  .blog-card .blog-title {
+    @apply text-xl font-bold mb-3;
+    /* Remove top margin on web when title is first */
+    @apply md:mt-0;
+  }
+
+  .blog-card .blog-title a {
+    @apply text-slate-200 hover:text-pink-400 transition-colors no-underline;
+    font-weight: 700;
+  }
+
+  .blog-card .blog-excerpt {
+    @apply text-slate-300 mb-4 leading-relaxed;
+  }
+
+  /* Blog Card Images */
+  .blog-card .blog-image {
+    @apply overflow-hidden rounded-lg;
+    /* Mobile: full width, square */
+    @apply w-full aspect-square;
+    /* Desktop: square, fixed width */
+    @apply md:w-48 md:h-48 md:flex-shrink-0;
+  }
+
+  .blog-card .blog-card-image {
+    @apply w-full h-full object-cover;
   }
 }
 

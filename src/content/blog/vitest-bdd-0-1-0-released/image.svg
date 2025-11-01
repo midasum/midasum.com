@@ -1,0 +1,22 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="releaseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="releaseGlow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.05" />
+    </radialGradient>
+  </defs>
+  <!-- Background with border to visualize size -->
+  <rect width="400" height="400" fill="#0f172a"/>
+  <rect width="400" height="400" fill="url(#releaseGlow)"/>
+  <rect x="100" y="140" width="200" height="120" rx="12" fill="url(#releaseGradient)" opacity="0.9"/>
+  <circle cx="160" cy="200" r="16" fill="#0f172a" opacity="0.5"/>
+  <circle cx="200" cy="200" r="16" fill="#0f172a" opacity="0.5"/>
+  <circle cx="240" cy="200" r="16" fill="#0f172a" opacity="0.5"/>
+  <text x="200" y="310" font-family="Arial, sans-serif" font-size="24" fill="#e2e8f0" text-anchor="middle" font-weight="bold">v0.1.0</text>
+</svg>
+

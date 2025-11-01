@@ -20,14 +20,16 @@ const displayExcerpt = excerpt || '';
       <img src={image} alt={title} class="blog-card-image" loading="lazy" />
     </div>
   )}
-  <div class="blog-meta">
-    <time class="blog-date" datetime={date}>{new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-    <span class="blog-category">{category}</span>
+  <div class="blog-card-content">
+    <h3 class="blog-title">
+      <a href={`/blog/${slug}`}>{title}</a>
+    </h3>
+    <div class="blog-meta">
+      <time class="blog-date" datetime={date}>{new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+      <span class="blog-category">{category}</span>
+    </div>
+    {displayExcerpt && <p class="blog-excerpt">{displayExcerpt}</p>}
+    <a href={`/blog/${slug}`} class="blog-read-more">Read more →</a>
   </div>
-  <h3 class="blog-title">
-    <a href={`/blog/${slug}`}>{title}</a>
-  </h3>
-  {displayExcerpt && <p class="blog-excerpt">{displayExcerpt}</p>}
-  <a href={`/blog/${slug}`} class="blog-read-more">Read more →</a>
 </article>
 

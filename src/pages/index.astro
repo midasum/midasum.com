@@ -26,20 +26,48 @@ const projects = [
 ];
 
 const blogPosts = await getCollection('blog');
-const sortedPosts = blogPosts
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3)
-  .map((post) => {
-    // Extract excerpt from raw content (first paragraph)
-    const rawBody = post.body;
-    const firstParagraph = rawBody.split('\n\n').find(p => p.trim() && !p.trim().startsWith('#')) || '';
-    const excerpt = firstParagraph.replace(/[#*`\[\]]/g, '').trim().substring(0, 200) || '';
-    
-    return {
-      ...post,
-      excerpt: excerpt || post.data.title,
-    };
-  });
+const sortedPosts = await Promise.all(
+  blogPosts
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    .slice(0, 3)
+    .map(async (post) => {
+      // Extract excerpt from raw content (first paragraph)
+      const rawBody = post.body;
+      const firstParagraph = rawBody.split('\n\n').find(p => p.trim() && !p.trim().startsWith('#')) || '';
+      const excerpt = firstParagraph.replace(/[#*`\[\]]/g, '').trim().substring(0, 200) || '';
+      
+      // Resolve image path
+      let imageUrl = null;
+      if (post.data.image) {
+        try {
+          if (post.data.image.startsWith('./')) {
+            const imagePath = post.data.image.slice(2);
+            const imageModule = await import(`../content/blog/${post.slug}/${imagePath}`);
+            imageUrl = imageModule.default;
+          } else if (post.data.image.startsWith('/')) {
+            const imagePath = post.data.image.slice(1);
+            const imageModule = await import(`../content/blog/${imagePath}`);
+            imageUrl = imageModule.default;
+          } else {
+            try {
+              const imageModule = await import(`../content/blog/${post.slug}/${post.data.image}`);
+              imageUrl = imageModule.default;
+            } catch {
+              imageUrl = post.data.image;
+            }
+          }
+        } catch {
+          imageUrl = post.data.image;
+        }
+      }
+      
+      return {
+        ...post,
+        excerpt: excerpt || post.data.title,
+        imageUrl: typeof imageUrl === 'string' ? imageUrl : (imageUrl?.src || imageUrl),
+      };
+    })
+);
 ---
 
 <BaseLayout title="midasum - Experiments & Research">
@@ -80,7 +108,7 @@ const sortedPosts = blogPosts
             date={post.data.date.toISOString()}
             category={post.data.category}
             slug={post.slug}
-            image={post.data.image}
+            image={post.imageUrl}
           />
         ))}
       </div>
