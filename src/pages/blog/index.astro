@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const blogPosts = await getCollection('blog');
+const sortedPosts = blogPosts.sort((a, b) => 
+  b.data.date.getTime() - a.data.date.getTime()
+).map((post) => {
+  // Extract excerpt from raw content (first paragraph)
+  const rawBody = post.body;
+  const firstParagraph = rawBody.split('\n\n').find(p => p.trim() && !p.trim().startsWith('#')) || '';
+  const excerpt = firstParagraph.replace(/[#*`\[\]]/g, '').trim().substring(0, 200) || '';
+  
+  return {
+    ...post,
+    excerpt: excerpt || post.data.title,
+  };
+});
+---
+
+<BaseLayout title="Blog - midasum">
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Blog</h1>
+      <p class="hero-description">
+        Thoughts, experiments, and discoveries from ongoing research.
+      </p>
+    </div>
+  </section>
+
+  <section class="blog">
+    <div class="container">
+      <div class="blog-list">
+        {sortedPosts.map((post) => (
+          <BlogCard 
+            title={post.data.title}
+            excerpt={post.excerpt}
+            date={post.data.date.toISOString()}
+            category={post.data.category}
+            slug={post.slug}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

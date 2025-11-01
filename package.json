@@ -5,9 +5,12 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
     "build:css": "postcss ./styles.css -o ./dist/styles.css --watch",
     "build:css:once": "postcss ./styles.css -o ./dist/styles.css",
-    "dev": "pnpm build:css",
     "serve": "live-server --port=8000 --open=/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,10 +19,15 @@
   "license": "ISC",
   "packageManager": "pnpm@10.17.1",
   "devDependencies": {
+    "@astrojs/mdx": "^4.3.9",
     "autoprefixer": "^10.4.21",
     "live-server": "^1.2.2",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "tailwindcss": "^3.4.18"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.15.3"
   }
 }

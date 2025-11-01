@@ -1,0 +1,38 @@
+@layer components {
+  .hero-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400 bg-clip-text text-transparent;
+  }
+
+  .hero-description {
+    @apply text-xl text-slate-400 max-w-2xl;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-4 text-slate-100;
+  }
+
+  .section-description {
+    @apply text-lg text-slate-400 mb-12;
+  }
+
+  .project-title {
+    @apply text-xl font-semibold mb-3 text-pink-400;
+  }
+
+  .project-description {
+    @apply text-slate-300 mb-4 leading-relaxed;
+  }
+
+  .blog-title {
+    @apply text-xl font-semibold mb-3;
+  }
+
+  .blog-title a {
+    @apply text-slate-100 hover:text-pink-400 transition-colors;
+  }
+
+  .blog-excerpt {
+    @apply text-slate-300 mb-4 leading-relaxed;
+  }
+}
+

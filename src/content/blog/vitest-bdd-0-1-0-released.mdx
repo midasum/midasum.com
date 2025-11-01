@@ -1,0 +1,53 @@
+---
+title: vitest-bdd 0.1.0 Released
+date: 2025-01-15
+category: Release
+---
+
+We're excited to announce the first stable release of vitest-bdd. This plugin brings Gherkin-style BDD testing to Vitest, making it easier to write readable, maintainable tests that describe behavior in plain language.
+
+## What is vitest-bdd?
+
+vitest-bdd is a simple Vitest plugin that enables you to write tests using Gherkin syntax. This approach makes your tests more accessible to both technical and non-technical team members, creating a shared language for describing expected behavior.
+
+## Key Features
+
+- **Gherkin Support**: Write tests using Given-When-Then syntax
+- **TypeScript First**: Full TypeScript support with type safety
+- **Vitest Integration**: Seamlessly integrates with Vitest's existing features
+- **Simple API**: Minimal setup required to get started
+
+## Getting Started
+
+Install the plugin:
+
+```bash
+pnpm add -D vitest-bdd
+```
+
+Configure it in your `vitest.config.ts`:
+
+```typescript
+import { defineConfig } from 'vitest/config';
+import vitestBdd from 'vitest-bdd';
+
+export default defineConfig({
+  plugins: [vitestBdd()],
+});
+```
+
+## Example
+
+```gherkin
+Feature: User authentication
+
+Scenario: Successful login
+  Given a user with email "user@example.com"
+  When the user logs in with password "password123"
+  Then the user should be authenticated
+```
+
+## What's Next?
+
+We're actively working on improving the plugin and adding more features. Check out the [GitHub repository](https://github.com/midasum/vitest-bdd) for updates and contributions.
+

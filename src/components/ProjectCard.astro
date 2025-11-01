@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  website?: string;
+  github?: string;
+}
+
+const { title, description, tags, website, github } = Astro.props;
+---
+
+<article class="project-card">
+  <h3 class="project-title">{title}</h3>
+  <p class="project-description">{description}</p>
+  <div class="project-meta">
+    {tags.map((tag) => (
+      <span class="project-tag">{tag}</span>
+    ))}
+  </div>
+  <div class="project-links">
+    {website && (
+      <a href={website} class="project-link" target="_blank" rel="noopener noreferrer">Website</a>
+    )}
+    {github && (
+      <a href={github} class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+    )}
+  </div>
+</article>
+

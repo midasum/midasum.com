@@ -1,0 +1,62 @@
+@layer components {
+  .hero {
+    @apply py-20 lg:py-32;
+  }
+
+  .projects {
+    @apply py-16 lg:py-24;
+  }
+
+  .projects-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .project-card {
+    @apply bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-pink-500/50 transition-colors;
+  }
+
+  .project-meta {
+    @apply flex flex-wrap gap-2 mb-4;
+  }
+
+  .project-tag {
+    @apply px-2 py-1 text-xs font-medium bg-slate-800 text-slate-300 rounded;
+  }
+
+  .project-links {
+    @apply flex gap-4 mt-4;
+  }
+
+  .project-link {
+    @apply text-pink-400 hover:text-pink-300 text-sm font-medium transition-colors;
+  }
+
+  .blog {
+    @apply py-16 lg:py-24 bg-slate-900/50;
+  }
+
+  .blog-list {
+    @apply space-y-8;
+  }
+
+  .blog-card {
+    @apply bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-pink-500/50 transition-colors;
+  }
+
+  .blog-meta {
+    @apply flex items-center gap-4 mb-3 text-sm text-slate-400;
+  }
+
+  .blog-date {
+    @apply text-slate-500;
+  }
+
+  .blog-category {
+    @apply px-2 py-1 text-xs font-medium bg-fuchsia-900/30 text-fuchsia-400 rounded;
+  }
+
+  .blog-read-more {
+    @apply text-pink-400 hover:text-pink-300 text-sm font-medium transition-colors inline-block;
+  }
+}
+

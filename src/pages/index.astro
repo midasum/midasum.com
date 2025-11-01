@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = [
+  {
+    title: 'Tilia',
+    description: 'A modern JavaScript library for building robust applications.',
+    tags: ['TypeScript', 'Library'],
+    website: 'https://tiliajs.com',
+    github: 'https://github.com/midasum/tilia',
+  },
+  {
+    title: 'vitest-bdd',
+    description: 'Simple Vitest plugin for Gherkin tests. Write behavior-driven tests with ease.',
+    tags: ['TypeScript', 'BDD', 'Testing'],
+    github: 'https://github.com/midasum/vitest-bdd',
+  },
+  {
+    title: 'Numinum',
+    description: 'Mathematical computing and visualization app for exploring numerical concepts.',
+    tags: ['Math', 'Visualization'],
+  },
+];
+
+const blogPosts = await getCollection('blog');
+const sortedPosts = blogPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
+  .map((post) => {
+    // Extract excerpt from raw content (first paragraph)
+    const rawBody = post.body;
+    const firstParagraph = rawBody.split('\n\n').find(p => p.trim() && !p.trim().startsWith('#')) || '';
+    const excerpt = firstParagraph.replace(/[#*`\[\]]/g, '').trim().substring(0, 200) || '';
+    
+    return {
+      ...post,
+      excerpt: excerpt || post.data.title,
+    };
+  });
+---
+
+<BaseLayout title="midasum - Experiments & Research">
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Experiments & Research</h1>
+      <p class="hero-description">
+        Ongoing experiments and research in BDD, mathematics, learning, and beyond.
+      </p>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <p class="section-description">
+        Open source projects and tools without dedicated websites.
+      </p>
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <ProjectCard {...project} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="blog" class="blog">
+    <div class="container">
+      <h2 class="section-title">Blog</h2>
+      <p class="section-description">
+        Thoughts, experiments, and discoveries from ongoing research.
+      </p>
+      <div class="blog-list">
+        {sortedPosts.map((post) => (
+          <BlogCard 
+            title={post.data.title}
+            excerpt={post.excerpt}
+            date={post.data.date.toISOString()}
+            category={post.data.category}
+            slug={post.slug}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
