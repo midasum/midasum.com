@@ -1,0 +1,25 @@
+{
+  "name": "midasum.com",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "postcss ./styles.css -o ./dist/styles.css --watch",
+    "build:css:once": "postcss ./styles.css -o ./dist/styles.css",
+    "dev": "pnpm build:css",
+    "serve": "live-server --port=8000 --open=/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.17.1",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "live-server": "^1.2.2",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^3.4.18"
+  }
+}
