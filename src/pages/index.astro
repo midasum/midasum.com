@@ -1,32 +1,35 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import BlogCard from '../components/BlogCard.astro';
-import { getCollection } from 'astro:content';
-import { SOCIAL_LINKS } from '../consts';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import BlogCard from "../components/BlogCard.astro";
+import { getCollection } from "astro:content";
+import { SOCIAL_LINKS, AUTHOR } from "../consts";
 
 const projects = [
   {
-    title: 'Tilia',
-    description: 'A modern JavaScript library for building robust applications.',
-    tags: ['TypeScript', 'Library'],
-    website: 'https://tiliajs.com',
-    github: 'https://github.com/midasum/tilia',
+    title: "Tilia",
+    description:
+      "A modern JavaScript library for building robust applications.",
+    tags: ["TypeScript", "Library"],
+    website: "https://tiliajs.com",
+    github: "https://github.com/midasum/tilia",
   },
   {
-    title: 'vitest-bdd',
-    description: 'Simple Vitest plugin for Gherkin tests. Write behavior-driven tests with ease.',
-    tags: ['TypeScript', 'BDD', 'Testing'],
-    github: 'https://github.com/midasum/vitest-bdd',
+    title: "vitest-bdd",
+    description:
+      "Simple Vitest plugin for Gherkin tests. Write behavior-driven tests with ease.",
+    tags: ["TypeScript", "BDD", "Testing"],
+    github: "https://github.com/midasum/vitest-bdd",
   },
   {
-    title: 'Numinum',
-    description: 'Mathematical computing and visualization app for exploring numerical concepts.',
-    tags: ['Math', 'Visualization'],
+    title: "Numinum",
+    description:
+      "Mathematical computing and visualization app for exploring numerical concepts.",
+    tags: ["Math", "Visualization"],
   },
 ];
 
-const blogPosts = await getCollection('blog');
+const blogPosts = await getCollection("blog");
 const sortedPosts = await Promise.all(
   blogPosts
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -34,24 +37,35 @@ const sortedPosts = await Promise.all(
     .map(async (post) => {
       // Extract excerpt from raw content (first paragraph)
       const rawBody = post.body;
-      const firstParagraph = rawBody.split('\n\n').find(p => p.trim() && !p.trim().startsWith('#')) || '';
-      const excerpt = firstParagraph.replace(/[#*`\[\]]/g, '').trim().substring(0, 200) || '';
-      
+      const firstParagraph =
+        rawBody
+          .split("\n\n")
+          .find((p) => p.trim() && !p.trim().startsWith("#")) || "";
+      const excerpt =
+        firstParagraph
+          .replace(/[#*`\[\]]/g, "")
+          .trim()
+          .substring(0, 200) || "";
+
       // Resolve image path
       let imageUrl = null;
       if (post.data.image) {
         try {
-          if (post.data.image.startsWith('./')) {
+          if (post.data.image.startsWith("./")) {
             const imagePath = post.data.image.slice(2);
-            const imageModule = await import(`../content/blog/${post.slug}/${imagePath}`);
+            const imageModule = await import(
+              `../content/blog/${post.slug}/${imagePath}`
+            );
             imageUrl = imageModule.default;
-          } else if (post.data.image.startsWith('/')) {
+          } else if (post.data.image.startsWith("/")) {
             const imagePath = post.data.image.slice(1);
             const imageModule = await import(`../content/blog/${imagePath}`);
             imageUrl = imageModule.default;
           } else {
             try {
-              const imageModule = await import(`../content/blog/${post.slug}/${post.data.image}`);
+              const imageModule = await import(
+                `../content/blog/${post.slug}/${post.data.image}`
+              );
               imageUrl = imageModule.default;
             } catch {
               imageUrl = post.data.image;
@@ -61,46 +75,136 @@ const sortedPosts = await Promise.all(
           imageUrl = post.data.image;
         }
       }
-      
+
       return {
         ...post,
         excerpt: excerpt || post.data.title,
-        imageUrl: typeof imageUrl === 'string' ? imageUrl : (imageUrl?.src || imageUrl),
+        imageUrl:
+          typeof imageUrl === "string" ? imageUrl : imageUrl?.src || imageUrl,
       };
-    })
+    }),
 );
 ---
 
 <BaseLayout title="midasum - Experiments & Research">
   <section class="hero">
     <div class="container">
-      <h1 class="hero-title">Experiments & Research</h1>
+      <h1 class="hero-title">Beyond Boundaries</h1>
       <p class="hero-description">
-        Ongoing experiments and research in BDD, mathematics, learning, and beyond.
+        Where do we stand with our words, natural and imperfect in the age of AI
+        ?
       </p>
+      <p class="hero-intro">
+        Hi, I'm <strong>{AUTHOR.name}</strong>. I design constructed languages,
+        build functional and declarative systems, compose music, and explore how
+        language, logic, and mathematics shape the way we think, learn, and
+        create. My work spans open-source software, educational applications,
+        and more poetic projects—all aiming to question our ways of thinking and
+        dreaming in a dance with AI.
+      </p>
+      <p class="hero-intro">
+        Through machine learning and AI projects (notably in collaboration with
+        EPFL), I am continuously exploring our relationship with software-based
+        otherness, seeking new approaches for creativity and understanding.
+      </p>
+
       <div class="social-links">
-        <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        <a
+          href={SOCIAL_LINKS.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-link"
+          aria-label="GitHub"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+            ></path>
           </svg>
         </a>
-        <a href={SOCIAL_LINKS.bluesky} target="_blank" rel="me noopener noreferrer" class="social-link" aria-label="Bluesky">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"/>
+        <a
+          href={SOCIAL_LINKS.bluesky}
+          target="_blank"
+          rel="me noopener noreferrer"
+          class="social-link"
+          aria-label="Bluesky"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"
+            ></path>
           </svg>
         </a>
-        <a href={SOCIAL_LINKS.devto} target="_blank" rel="noopener noreferrer" class="social-link" aria-label="dev.to">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-1.6c-1.53 0-1.6-.01-1.87-.3l-.3-.28v-3.16c0-3.02.01-3.18.25-3.48.23-.31.25-.31 1.88-.31h1.64v1.3zm4.68 5.45c-.17.43-.64.79-1 .79-.18 0-.45-.15-.67-.39-.32-.32-.45-.63-.82-2.08l-.9-3.39-.45-1.67h.76c.4 0 .75.02.75.05 0 .06 1.16 4.54 1.26 4.83.04.15.32-.7.73-2.3l.66-2.52.74-.04c.4-.02.73 0 .73.04 0 .14-1.67 6.38-1.8 6.68z"/>
+        <a
+          href={SOCIAL_LINKS.devto}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-link"
+          aria-label="dev.to"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-1.6c-1.53 0-1.6-.01-1.87-.3l-.3-.28v-3.16c0-3.02.01-3.18.25-3.48.23-.31.25-.31 1.88-.31h1.64v1.3zm4.68 5.45c-.17.43-.64.79-1 .79-.18 0-.45-.15-.67-.39-.32-.32-.45-.63-.82-2.08l-.9-3.39-.45-1.67h.76c.4 0 .75.02.75.05 0 .06 1.16 4.54 1.26 4.83.04.15.32-.7.73-2.3l.66-2.52.74-.04c.4-.02.73 0 .73.04 0 .14-1.67 6.38-1.8 6.68z"
+            ></path>
           </svg>
         </a>
-        <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        <a
+          href={SOCIAL_LINKS.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-link"
+          aria-label="LinkedIn"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+            ></path>
           </svg>
         </a>
-        <a href={SOCIAL_LINKS.rss} rel="alternate" type="application/rss+xml" class="social-link" aria-label="RSS Feed">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <a
+          href={SOCIAL_LINKS.rss}
+          rel="alternate"
+          type="application/rss+xml"
+          class="social-link"
+          aria-label="RSS Feed"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
             <path d="M4 11a9 9 0 0 1 9 9"></path>
             <path d="M4 4a16 16 0 0 1 16 16"></path>
             <circle cx="5" cy="19" r="1"></circle>
@@ -113,13 +217,9 @@ const sortedPosts = await Promise.all(
   <section id="projects" class="projects">
     <div class="container">
       <h2 class="section-title">Projects</h2>
-      <p class="section-description">
-        Open source projects and tools without dedicated websites.
-      </p>
+      <p class="section-description">Main projects and tools.</p>
       <div class="projects-grid">
-        {projects.map((project) => (
-          <ProjectCard {...project} />
-        ))}
+        {projects.map((project) => <ProjectCard {...project} />)}
       </div>
     </div>
   </section>
@@ -131,16 +231,18 @@ const sortedPosts = await Promise.all(
         Thoughts, experiments, and discoveries from ongoing research.
       </p>
       <div class="blog-list">
-        {sortedPosts.map((post) => (
-          <BlogCard 
-            title={post.data.title}
-            excerpt={post.excerpt}
-            date={post.data.date.toISOString()}
-            category={post.data.category}
-            slug={post.slug}
-            image={post.imageUrl}
-          />
-        ))}
+        {
+          sortedPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              excerpt={post.excerpt}
+              date={post.data.date.toISOString()}
+              category={post.data.category}
+              slug={post.slug}
+              image={post.imageUrl}
+            />
+          ))
+        }
       </div>
     </div>
   </section>

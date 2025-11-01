@@ -7,6 +7,14 @@
     @apply text-xl text-slate-400 max-w-2xl;
   }
 
+  .hero-intro {
+    @apply text-lg text-slate-400 max-w-2xl mt-6 mb-4 text-left;
+  }
+
+  .hero-intro strong {
+    @apply text-slate-100 font-semibold;
+  }
+
   .section-title {
     @apply text-3xl md:text-4xl font-bold mb-4 text-slate-100;
   }
@@ -25,7 +33,7 @@
 
   /* Blog Post Typography (for actual blog post pages) */
   .blog-post {
-    @apply text-slate-200;
+    @apply text-slate-400;
     /* Optimal reading width: 65-75 characters */
     max-width: 65ch;
     margin-left: auto;
@@ -97,7 +105,7 @@
   }
 
   .blog-post li {
-    @apply text-slate-200;
+    @apply text-slate-400;
     font-size: 1.125rem;
     line-height: 1.75;
     /* Proper indentation for nested lists */
@@ -119,7 +127,7 @@
 
   /* Blockquotes */
   .blog-post blockquote {
-    @apply border-l-4 border-pink-500/50 pl-6 pr-4 py-2 my-6 italic text-slate-300;
+    @apply border-l-4 border-pink-500/50 pl-6 pr-4 py-2 my-6 italic text-slate-400;
     font-size: 1.125rem;
     line-height: 1.75;
     background-color: rgba(236, 72, 153, 0.05);
@@ -199,7 +207,7 @@
   }
 
   .blog-post td {
-    @apply text-slate-200;
+    @apply text-slate-400;
   }
 
   .blog-post tbody tr:nth-child(even) {
@@ -221,7 +229,7 @@
   }
 
   .blog-post dd {
-    @apply ml-6 mb-4 text-slate-300;
+    @apply ml-6 mb-4 text-slate-400;
   }
 
   /* Text alignment */
@@ -330,6 +338,15 @@
 
   .blog-card .blog-card-image {
     @apply w-full h-full object-cover;
+  }
+
+  /* Blog Post Signature */
+  .blog-post-signature {
+    @apply text-slate-400 text-sm mt-8 pt-6 border-t border-slate-800;
+  }
+
+  .blog-post-brand {
+    @apply text-slate-500;
   }
 }
 

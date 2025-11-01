@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
+import { AUTHOR } from '../../consts';
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog');
@@ -70,6 +71,9 @@ if (post.data.image) {
     <div class="blog-post-content">
       <Content />
     </div>
+    <p class="blog-post-signature">
+      <em>{AUTHOR.name} <span class="blog-post-brand">({AUTHOR.brand})</span></em>
+    </p>
   </article>
 </BaseLayout>
 

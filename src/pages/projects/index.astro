@@ -1,37 +1,40 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
 
 const projects = [
   {
-    title: 'Tilia',
-    description: 'A modern JavaScript library for building robust applications.',
-    tags: ['TypeScript', 'Library'],
-    website: 'https://tiliajs.com',
-    github: 'https://github.com/midasum/tilia',
+    title: "Tilia",
+    description:
+      "A modern JavaScript library for building robust applications.",
+    tags: ["TypeScript", "Library"],
+    website: "https://tiliajs.com",
+    github: "https://github.com/midasum/tilia",
   },
   {
-    title: 'vitest-bdd',
-    description: 'Simple Vitest plugin for Gherkin tests. Write behavior-driven tests with ease.',
-    tags: ['TypeScript', 'BDD', 'Testing'],
-    github: 'https://github.com/midasum/vitest-bdd',
+    title: "vitest-bdd",
+    description:
+      "Simple Vitest plugin for Gherkin tests. Write behavior-driven tests with ease.",
+    tags: ["TypeScript", "BDD", "Testing"],
+    github: "https://github.com/midasum/vitest-bdd",
   },
   {
-    title: 'Numinum',
-    description: 'Mathematical computing and visualization app for exploring numerical concepts.',
-    tags: ['Math', 'Visualization'],
+    title: "Numinum",
+    description:
+      "Mathematical computing and visualization app for exploring numerical concepts.",
+    tags: ["Math", "Visualization"],
   },
   {
-    title: 'telegraphy',
-    description: 'Remote RPC library for TypeScript and ReScript.',
-    tags: ['TypeScript', 'RPC', 'Library'],
-    github: 'https://github.com/midasum/telegraphy',
+    title: "telegraphy",
+    description: "Remote RPC library for TypeScript and ReScript.",
+    tags: ["TypeScript", "RPC", "Library"],
+    github: "https://github.com/midasum/telegraphy",
   },
   {
-    title: 'katex-skia',
-    description: 'Port of KaTeX to Skia.',
-    tags: ['JavaScript', 'Math', 'Rendering'],
-    github: 'https://github.com/midasum/katex-skia',
+    title: "katex-skia",
+    description: "Port of KaTeX to Skia.",
+    tags: ["JavaScript", "Math", "Rendering"],
+    github: "https://github.com/midasum/katex-skia",
   },
 ];
 ---
@@ -40,20 +43,15 @@ const projects = [
   <section class="hero">
     <div class="container">
       <h1 class="hero-title">Projects</h1>
-      <p class="hero-description">
-        Open source projects and tools without dedicated websites.
-      </p>
+      <p class="hero-description">Main projects and tools.</p>
     </div>
   </section>
 
   <section class="projects">
     <div class="container">
       <div class="projects-grid">
-        {projects.map((project) => (
-          <ProjectCard {...project} />
-        ))}
+        {projects.map((project) => <ProjectCard {...project} />)}
       </div>
     </div>
   </section>
 </BaseLayout>
-

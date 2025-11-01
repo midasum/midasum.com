@@ -35,8 +35,16 @@
     @apply text-slate-400 text-sm text-center mb-4;
   }
 
+  .footer-author {
+    @apply text-slate-500 text-xs text-center mb-4;
+  }
+
+  .footer-brand {
+    @apply text-slate-600;
+  }
+
   .footer-links {
-    @apply flex justify-center gap-4;
+    @apply flex justify-center gap-4 flex-wrap;
   }
 
   .footer-links a {

@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { AUTHOR, SOCIAL_LINKS } from "../consts";
+---
+
+<BaseLayout title="About - midasum">
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">About</h1>
+      <p class="hero-description">About midasum and its author.</p>
+    </div>
+  </section>
+
+  <section class="blog">
+    <div class="container">
+      <article class="blog-post">
+        <p>
+          I publish software and educational resources under <strong
+            >midasum</strong
+          > and my official name <strong>{AUTHOR.name}</strong>.
+        </p>
+
+        <p>
+          All content on this site, including blog posts, projects, and code
+          repositories, is authored by {AUTHOR.name}
+          <span class="blog-post-brand">({AUTHOR.brand})</span>.
+        </p>
+
+        <h2>Projects</h2>
+        <p>
+          The projects showcased here represent ongoing experiments and research
+          in behavior-driven development (BDD), mathematics, learning, and
+          software development. Most projects are open source and available for
+          exploration, contribution, and learning.
+        </p>
+
+        <h2>Connect</h2>
+        <p>You can find me and my work across various platforms:</p>
+        <ul>
+          <li>
+            <a
+              href={SOCIAL_LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer">View my code on GitHub</a>
+          </li>
+          <li>
+            <a
+              href={SOCIAL_LINKS.bluesky}
+              target="_blank"
+              rel="me noopener noreferrer">Follow on Bluesky</a>
+          </li>
+          <li>
+            <a
+              href={SOCIAL_LINKS.devto}
+              target="_blank"
+              rel="noopener noreferrer">Read articles on dev.to</a>
+          </li>
+          <li>
+            <a
+              href={SOCIAL_LINKS.linkedin}
+              target="_blank"
+              rel="noopener noreferrer">Connect on LinkedIn</a>
+          </li>
+          <li>
+            <a
+              href={SOCIAL_LINKS.rss}
+              rel="alternate"
+              type="application/rss+xml">Subscribe via RSS</a>
+          </li>
+        </ul>
+
+        <p class="blog-post-signature">
+          <em
+            >Author: {AUTHOR.name}
+            <span class="blog-post-brand">({AUTHOR.brand})</span>.</em
+          >
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
