@@ -10,6 +10,7 @@ import rehypeMermaid from 'rehype-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://midasum.com',
   integrations: [
     mdx({
       syntaxHighlight: false,
