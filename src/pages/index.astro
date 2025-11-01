@@ -4,6 +4,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 import BlogCard from "../components/BlogCard.astro";
 import { getCollection } from "astro:content";
 import { SOCIAL_LINKS, AUTHOR } from "../consts";
+import { resolveBlogImage } from "../utils/resolveImage";
 
 const projects = [
   {
@@ -48,45 +49,9 @@ const sortedPosts = await Promise.all(
           .substring(0, 200) || "";
 
       // Resolve image path
-      let imageUrl = null;
-      if (post.data.image) {
-        try {
-          if (post.data.image.startsWith("./")) {
-            const imagePath = post.data.image.slice(2);
-            // Ensure extension is included for Vite dynamic imports
-            const imagePathWithExt = imagePath.includes(".")
-              ? imagePath
-              : `${imagePath}.svg`;
-            const imageModule = await import(
-              `../content/blog/${post.slug}/${imagePathWithExt}?url`
-            );
-            imageUrl = imageModule.default;
-          } else if (post.data.image.startsWith("/")) {
-            const imagePath = post.data.image.slice(1);
-            const imagePathWithExt = imagePath.includes(".")
-              ? imagePath
-              : `${imagePath}.svg`;
-            const imageModule = await import(
-              `../content/blog/${imagePathWithExt}?url`
-            );
-            imageUrl = imageModule.default;
-          } else {
-            try {
-              const imagePathWithExt = post.data.image.includes(".")
-                ? post.data.image
-                : `${post.data.image}.svg`;
-              const imageModule = await import(
-                `../content/blog/${post.slug}/${imagePathWithExt}?url`
-              );
-              imageUrl = imageModule.default;
-            } catch {
-              imageUrl = post.data.image;
-            }
-          }
-        } catch {
-          imageUrl = post.data.image;
-        }
-      }
+      const imageUrl = post.data.image
+        ? await resolveBlogImage(post.data.image, post.slug)
+        : null;
 
       return {
         ...post,

@@ -1,8 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import { AUTHOR } from '../../consts';
+import { resolveBlogImage } from '../../utils/resolveImage';
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog');
@@ -21,33 +22,38 @@ const rendered = await post.render();
 const { Content } = rendered;
 
 // Handle image if provided
-let articleImage = null;
+let articleImage: string | ReturnType<typeof getImage> | null = null;
 if (post.data.image) {
   try {
-    // For relative paths (./image.svg), import from the same folder as the post
-    if (post.data.image.startsWith('./')) {
-      const imagePath = post.data.image.slice(2); // Remove './'
+    // Try to resolve as a local asset first
+    const imageUrl = await resolveBlogImage(post.data.image, post.slug);
+    
+    // If resolution succeeded and it's a local path (starts with /), import it
+    if (imageUrl.startsWith('/') && !imageUrl.startsWith('http')) {
+      // Import the image asset for use with Image component
+      let imageAsset: any;
+      const imagePath = post.data.image.startsWith('./') 
+        ? post.data.image.slice(2)
+        : post.data.image.startsWith('/')
+        ? post.data.image.slice(1)
+        : post.data.image;
       const imagePathWithExt = imagePath.includes('.') ? imagePath : `${imagePath}.svg`;
-      const imageModule = await import(`../../content/blog/${post.slug}/${imagePathWithExt}?url`);
-      articleImage = imageModule.default;
-    } else if (post.data.image.startsWith('/')) {
-      // Absolute path from content directory
-      const imagePath = post.data.image.slice(1);
-      const imagePathWithExt = imagePath.includes('.') ? imagePath : `${imagePath}.svg`;
-      const imageModule = await import(`../../content/blog/${imagePathWithExt}?url`);
-      articleImage = imageModule.default;
-    } else {
-      // Try relative to post folder first, then fallback to external URL
+      
       try {
-        const imagePathWithExt = post.data.image.includes('.') ? post.data.image : `${post.data.image}.svg`;
-        const imageModule = await import(`../../content/blog/${post.slug}/${imagePathWithExt}?url`);
-        articleImage = imageModule.default;
+        const imageModule = await import(`../../content/blog/${post.slug}/${imagePathWithExt}`);
+        imageAsset = imageModule.default;
+        const processedImage = await getImage({ src: imageAsset });
+        articleImage = processedImage;
       } catch {
-        articleImage = post.data.image; // External URL
+        // Fallback to URL string
+        articleImage = imageUrl;
       }
+    } else {
+      // External URL or fallback
+      articleImage = imageUrl;
     }
   } catch {
-    // If import fails, use as external URL
+    // If resolution fails, use as external URL
     articleImage = post.data.image;
   }
 }
@@ -67,7 +73,7 @@ if (post.data.image) {
         {typeof articleImage === 'string' ? (
           <img src={articleImage} alt={post.data.title} />
         ) : (
-          <Image src={articleImage} alt={post.data.title} />
+          <Image src={articleImage.src} alt={post.data.title} width={articleImage.width} height={articleImage.height} />
         )}
       </figure>
     )}
