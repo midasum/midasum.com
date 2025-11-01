@@ -34,5 +34,281 @@
   .blog-excerpt {
     @apply text-slate-300 mb-4 leading-relaxed;
   }
+
+  /* Article Typography */
+  article {
+    @apply text-slate-200;
+    /* Optimal reading width: 65-75 characters */
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Paragraphs */
+  article p {
+    @apply mb-6 leading-relaxed;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    /* Prevent orphans and widows */
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Headings hierarchy */
+  article h1 {
+    @apply text-4xl font-bold mb-6 mt-8 text-slate-100 leading-tight;
+    /* First heading should have less top margin */
+  }
+
+  article h1:first-child {
+    @apply mt-0;
+  }
+
+  article h2 {
+    @apply text-3xl font-bold mb-5 mt-10 text-slate-100 leading-tight;
+    /* Clear visual separation */
+    border-top: 1px solid rgba(148, 163, 184, 0.1);
+    padding-top: 1.5rem;
+  }
+
+  article h2:first-child {
+    @apply mt-0;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  article h3 {
+    @apply text-2xl font-semibold mb-4 mt-8 text-slate-100 leading-snug;
+  }
+
+  article h4 {
+    @apply text-xl font-semibold mb-3 mt-6 text-slate-200 leading-snug;
+  }
+
+  article h5 {
+    @apply text-lg font-semibold mb-3 mt-5 text-slate-200 leading-snug;
+  }
+
+  article h6 {
+    @apply text-base font-semibold mb-2 mt-4 text-slate-300 leading-snug;
+  }
+
+  /* Lists */
+  article ul,
+  article ol {
+    @apply mb-6 ml-6 space-y-2;
+    line-height: 1.75;
+  }
+
+  article ul {
+    list-style-type: disc;
+  }
+
+  article ol {
+    list-style-type: decimal;
+  }
+
+  article li {
+    @apply text-slate-200;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    /* Proper indentation for nested lists */
+    padding-left: 0.5rem;
+  }
+
+  article li > ul,
+  article li > ol {
+    @apply mt-2 mb-0;
+  }
+
+  /* Nested lists */
+  article ul ul,
+  article ol ol,
+  article ul ol,
+  article ol ul {
+    @apply mt-2 mb-0;
+  }
+
+  /* Blockquotes */
+  article blockquote {
+    @apply border-l-4 border-pink-500/50 pl-6 pr-4 py-2 my-6 italic text-slate-300;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    background-color: rgba(236, 72, 153, 0.05);
+    border-radius: 0 0.25rem 0.25rem 0;
+  }
+
+  article blockquote p {
+    @apply mb-0;
+  }
+
+  article blockquote p:not(:last-child) {
+    @apply mb-4;
+  }
+
+  /* Links */
+  article a {
+    @apply text-pink-400 hover:text-pink-300 underline underline-offset-2 transition-colors;
+    /* Proper link color contrast */
+  }
+
+  article a:visited {
+    @apply text-fuchsia-400;
+  }
+
+  /* Emphasis */
+  article strong {
+    @apply font-semibold text-slate-100;
+  }
+
+  article em {
+    @apply italic;
+  }
+
+  /* Horizontal rules */
+  article hr {
+    @apply border-0 border-t border-slate-800 my-8;
+    /* Clear visual separation */
+  }
+
+  /* Images */
+  article img {
+    @apply my-8 rounded-lg;
+    max-width: 100%;
+    height: auto;
+  }
+
+  article figure {
+    @apply my-8;
+  }
+
+  article figcaption {
+    @apply text-sm text-slate-400 mt-2 text-center italic;
+  }
+
+  /* Tables */
+  article table {
+    @apply w-full my-6 border-collapse;
+  }
+
+  article th,
+  article td {
+    @apply border border-slate-700 px-4 py-2 text-left;
+  }
+
+  article th {
+    @apply bg-slate-900 font-semibold text-slate-100;
+  }
+
+  article td {
+    @apply text-slate-200;
+  }
+
+  article tbody tr:nth-child(even) {
+    @apply bg-slate-900/50;
+  }
+
+  /* Code inline */
+  article code {
+    @apply font-mono text-sm;
+  }
+
+  /* Definition lists */
+  article dl {
+    @apply my-6;
+  }
+
+  article dt {
+    @apply font-semibold text-slate-100 mb-2;
+  }
+
+  article dd {
+    @apply ml-6 mb-4 text-slate-300;
+  }
+
+  /* Text alignment */
+  article {
+    text-align: left;
+  }
+
+  /* Prevent text from being too wide */
+  article > * {
+    max-width: 100%;
+  }
+
+  /* First paragraph after headings */
+  article h1 + p,
+  article h2 + p,
+  article h3 + p,
+  article h4 + p {
+    @apply mt-0;
+  }
+
+  /* Proper spacing around code blocks */
+  article pre {
+    @apply my-6;
+  }
+
+  article p + pre,
+  article pre + p {
+    @apply mt-6;
+  }
+
+  /* Proper spacing around math blocks */
+  article .katex-display {
+    @apply my-8;
+  }
+
+  article p + .katex-display,
+  article .katex-display + p {
+    @apply mt-8;
+  }
+
+  /* Proper spacing around Mermaid diagrams */
+  article picture {
+    @apply my-8 block;
+  }
+
+  article p + picture,
+  article picture + p {
+    @apply mt-8;
+  }
+
+  /* Readability: ensure proper line length */
+  article {
+    /* Optimal line length: 45-75 characters */
+    /* Using ch units for character-based width */
+  }
+
+  /* Small text */
+  article small {
+    @apply text-sm text-slate-400;
+  }
+
+  /* Abbreviations */
+  article abbr {
+    @apply underline decoration-dotted decoration-slate-500 cursor-help;
+  }
+
+  /* Mark/highlight */
+  article mark {
+    @apply bg-pink-900/30 text-pink-200 px-1 rounded;
+  }
+
+  /* Subscript and superscript */
+  article sub,
+  article sup {
+    @apply text-xs relative;
+    line-height: 0;
+    vertical-align: baseline;
+  }
+
+  article sub {
+    bottom: -0.25em;
+  }
+
+  article sup {
+    top: -0.5em;
+  }
 }
 
