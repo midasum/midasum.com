@@ -5,12 +5,18 @@ interface Props {
   tags: string[];
   website?: string;
   github?: string;
+  image?: string;
 }
 
-const { title, description, tags, website, github } = Astro.props;
+const { title, description, tags, website, github, image } = Astro.props;
 ---
 
 <article class="project-card">
+  {image && (
+    <div class="project-image">
+      <img src={image} alt={title} class="project-card-image" loading="lazy" />
+    </div>
+  )}
   <h3 class="project-title">{title}</h3>
   <p class="project-description">{description}</p>
   <div class="project-meta">

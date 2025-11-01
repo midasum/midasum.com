@@ -5,15 +5,21 @@ interface Props {
   date: string;
   category: string;
   slug: string;
+  image?: string;
 }
 
-const { title, excerpt, date, category, slug } = Astro.props;
+const { title, excerpt, date, category, slug, image } = Astro.props;
 
 // Extract first paragraph for excerpt if not provided
 const displayExcerpt = excerpt || '';
 ---
 
 <article class="blog-card">
+  {image && (
+    <div class="blog-image">
+      <img src={image} alt={title} class="blog-card-image" loading="lazy" />
+    </div>
+  )}
   <div class="blog-meta">
     <time class="blog-date" datetime={date}>{new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
     <span class="blog-category">{category}</span>
