@@ -27,17 +27,20 @@ if (post.data.image) {
     // For relative paths (./image.svg), import from the same folder as the post
     if (post.data.image.startsWith('./')) {
       const imagePath = post.data.image.slice(2); // Remove './'
-      const imageModule = await import(`../../content/blog/${post.slug}/${imagePath}`);
+      const imagePathWithExt = imagePath.includes('.') ? imagePath : `${imagePath}.svg`;
+      const imageModule = await import(`../../content/blog/${post.slug}/${imagePathWithExt}?url`);
       articleImage = imageModule.default;
     } else if (post.data.image.startsWith('/')) {
       // Absolute path from content directory
       const imagePath = post.data.image.slice(1);
-      const imageModule = await import(`../../content/blog/${imagePath}`);
+      const imagePathWithExt = imagePath.includes('.') ? imagePath : `${imagePath}.svg`;
+      const imageModule = await import(`../../content/blog/${imagePathWithExt}?url`);
       articleImage = imageModule.default;
     } else {
       // Try relative to post folder first, then fallback to external URL
       try {
-        const imageModule = await import(`../../content/blog/${post.slug}/${post.data.image}`);
+        const imagePathWithExt = post.data.image.includes('.') ? post.data.image : `${post.data.image}.svg`;
+        const imageModule = await import(`../../content/blog/${post.slug}/${imagePathWithExt}?url`);
         articleImage = imageModule.default;
       } catch {
         articleImage = post.data.image; // External URL

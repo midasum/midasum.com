@@ -19,15 +19,18 @@ const sortedPosts = await Promise.all(
       try {
         if (post.data.image.startsWith('./')) {
           const imagePath = post.data.image.slice(2);
-          const imageModule = await import(`../../content/blog/${post.slug}/${imagePath}`);
+          const imagePathWithExt = imagePath.includes('.') ? imagePath : `${imagePath}.svg`;
+          const imageModule = await import(`../../content/blog/${post.slug}/${imagePathWithExt}?url`);
           imageUrl = imageModule.default;
         } else if (post.data.image.startsWith('/')) {
           const imagePath = post.data.image.slice(1);
-          const imageModule = await import(`../../content/blog/${imagePath}`);
+          const imagePathWithExt = imagePath.includes('.') ? imagePath : `${imagePath}.svg`;
+          const imageModule = await import(`../../content/blog/${imagePathWithExt}?url`);
           imageUrl = imageModule.default;
         } else {
           try {
-            const imageModule = await import(`../../content/blog/${post.slug}/${post.data.image}`);
+            const imagePathWithExt = post.data.image.includes('.') ? post.data.image : `${post.data.image}.svg`;
+            const imageModule = await import(`../../content/blog/${post.slug}/${imagePathWithExt}?url`);
             imageUrl = imageModule.default;
           } catch {
             imageUrl = post.data.image;
