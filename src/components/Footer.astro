@@ -1,4 +1,5 @@
 ---
+import { SOCIAL_LINKS } from '../consts';
 ---
 
 <footer class="footer">
@@ -7,7 +8,11 @@
       &copy; 2025 midasum. Open source experiments and research.
     </p>
     <div class="footer-links">
-      <a href="https://github.com/orgs/midasum/repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href={SOCIAL_LINKS.bluesky} target="_blank" rel="me noopener noreferrer">Bluesky</a>
+      <a href={SOCIAL_LINKS.devto} target="_blank" rel="noopener noreferrer">dev.to</a>
+      <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href={SOCIAL_LINKS.rss} rel="alternate" type="application/rss+xml">RSS</a>
     </div>
   </div>
 </footer>

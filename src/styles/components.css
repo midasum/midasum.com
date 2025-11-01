@@ -42,5 +42,21 @@
   .footer-links a {
     @apply text-slate-400 hover:text-pink-400 text-sm transition-colors;
   }
+
+  .social-links {
+    @apply flex items-center gap-4 mt-8;
+  }
+
+  .social-link {
+    @apply text-slate-400 hover:text-pink-400 transition-colors;
+    @apply flex items-center justify-center;
+    @apply w-10 h-10 rounded-lg;
+    @apply hover:bg-pink-400/10;
+    @apply transition-all duration-200;
+  }
+
+  .social-link svg {
+    @apply w-5 h-5;
+  }
 }
 
